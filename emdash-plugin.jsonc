@@ -1,0 +1,58 @@
+{
+	"$schema": "./node_modules/@emdash-cms/plugin-cli/schemas/emdash-plugin.schema.json",
+
+	"slug": "cookie-consent",
+	"publisher": "did:plc:vvm75pgx6ihqfuil7y5awyge",
+
+	"name": "Cookie Consent",
+	"description": "A cookie banner done properly: accept, reject or choose by category, nothing runs before consent, Consent Mode, every choice recorded.",
+	"keywords": ["cookie consent", "gdpr", "cookie banner", "privacy", "consent mode"],
+
+	"license": "MIT",
+	"author": { "name": "DesiDash Lab" },
+	"security": { "email": "desidashlab@gmail.com" },
+	"repo": "https://github.com/desidashlab/emdash-cookie-consent",
+
+	"release": {
+		"artifacts": {
+			"icon": { "file": "assets/icon.png" },
+			"banner": { "file": "assets/banner.png" },
+			"screenshots": [
+				{ "file": "assets/screenshot-site.jpg" },
+				{ "file": "assets/screenshot-preferences.jpg" },
+				{ "file": "assets/screenshot-overview.jpg" },
+				{ "file": "assets/screenshot-cookies.jpg" },
+				{ "file": "assets/screenshot-records.jpg" }
+			]
+		}
+	},
+
+	"sections": {
+		"installation": { "file": "docs/installation.md" },
+		"faq": { "file": "docs/faq.md" },
+		"changelog": { "file": "docs/changelog.md" }
+	},
+
+	// Needs no access to your content or the outside world. Consent is stored on your own site.
+	"capabilities": [],
+	"allowedHosts": [],
+
+	"storage": {
+		// One row per choice a visitor makes: consent ID, time, choice, categories, version, country. Kept 13 months.
+		"consents": {
+			"indexes": ["cid", "day", "at"]
+		},
+		// Daily counts for the statistics. Kept 13 months.
+		"days": {
+			"indexes": ["day"]
+		},
+		// Cookie names the script saw on the site that are not in the cookie list yet.
+		"found": {
+			"indexes": ["lastSeen"]
+		}
+	},
+
+	"admin": {
+		"pages": [{ "path": "/overview", "label": "Cookie Consent", "icon": "shield" }]
+	}
+}
